@@ -5,11 +5,9 @@ const cors = require("cors");
 app.use(cors({ origin: "*" }))
 require('dotenv').config()
 const MainRoutes = require("./Routes/mainRoute")
+const PortalRoutes = require("./Routes/portalRoute")
 
-app.get('/', async (req, res) => {
-    res.send("Server is Working 👍")
-})
-
+app.use("/", PortalRoutes)
 app.use("/main", MainRoutes)
 
 app.listen(process.env.PORT || 4999)

@@ -3,6 +3,9 @@ const mongoClient = mongodb.MongoClient;
 require('dotenv').config()
 const URL = process.env.DBURL
 
+const TestingRoute = async (req, res) => {
+    res.send("Server is Working 👍")
+}
 
 const NavbarAppspopupTopapps = async (req, res) => {
     try {
@@ -191,6 +194,7 @@ const GetMailDataForDelete = async (req, res) => {
 }
 
 module.exports = {
+    TestingRoute,
     NavbarAppspopupTopapps,
     NavbarAppspopupMiddleapps,
     InboxMails,
