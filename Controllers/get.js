@@ -4,7 +4,7 @@ require('dotenv').config()
 const URL = process.env.DBURL
 
 const TestingRoute = async (req, res) => {
-    res.send("Server is Working 👍")
+    res.send("Server is Working ☢️👍")
 }
 
 const NavbarAppspopupTopapps = async (req, res) => {
