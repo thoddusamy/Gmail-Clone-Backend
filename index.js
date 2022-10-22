@@ -10,4 +10,4 @@ const PortalRoutes = require("./Routes/portalRoute")
 app.use("/", PortalRoutes)
 app.use("/main", MainRoutes)
 
-app.listen(process.env.PORT || 4999)
+app.listen(process.env.PORT || 4999, () => console.log(`Server is running at 4999`))

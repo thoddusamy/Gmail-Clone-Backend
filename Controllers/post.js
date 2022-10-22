@@ -3,17 +3,43 @@ const mongoClient = mongodb.MongoClient
 require('dotenv').config()
 const URL = process.env.DBURL
 const { ObjectId } = require('mongodb')
+const nodemailer = require("nodemailer");
 
 const AddMail = async (req, res) => {
     try {
+        let { subject, message } = req.body
         const connection = await mongoClient.connect(URL);
         const db = connection.db("Gmail_Clone");
-        await db.collection("allmails").insertOne(req.body)
+        // await db.collection("allmails").insertOne(req.body)
         await db.collection("send_mails").insertOne(req.body)
-        await db.collection("inbox").insertOne(req.body)
+        // await db.collection("inbox").insertOne(req.body)
+
+        let transport = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: `${process.env.MAIL_ID}`,
+                pass: `${process.env.MAIL_PASSWORD}`
+            }
+        })
+
+        let mailOptions = {
+            from: `${process.env.MAIL_ID}`,
+            to: `${email}`,
+            subject: `${subject}`,
+            text: `${message}`
+        }
+
+        transport.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(info.response)
+            }
+        })
+
         connection.close()
         res.json({
-            message: "Mail added to inbox 👍"
+            message: "Mail sended 👍"
         })
     } catch (error) {
         console.log(error);
