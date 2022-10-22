@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 
 const AddMail = async (req, res) => {
     try {
-        let { subject, message } = req.body
+        let { subject, message, useremail } = req.body
         const connection = await mongoClient.connect(URL);
         const db = connection.db("Gmail_Clone");
         // await db.collection("allmails").insertOne(req.body)
@@ -24,7 +24,7 @@ const AddMail = async (req, res) => {
 
         let mailOptions = {
             from: `${process.env.MAIL_ID}`,
-            to: `${email}`,
+            to: `${useremail}`,
             subject: `${subject}`,
             text: `${message}`
         }
